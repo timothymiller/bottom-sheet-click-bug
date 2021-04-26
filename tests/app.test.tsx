@@ -1,7 +1,8 @@
 import React from 'react';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, getByTestId, render, waitFor } from '@testing-library/react';
 import Collection from '../pages/collection';
 import Forms from '../pages/forms';
+import { componentsReady } from "@porsche-design-system/components-react"
 
 jest.mock('next/link', () => 'a'); // Next JS Bug -> https://github.com/vercel/next.js/issues/15543
 
@@ -22,6 +23,19 @@ test('dismisses the headline from Porsche Design System', async () => {
   const dismissButtonElement = getByText('Dismiss');
   fireEvent.click(dismissButtonElement);
   expect(headLineElement).not.toBeInTheDocument();
+});
+
+test('sees validation messages', async () => {
+  const { getByTestId, getByText } = render(<Forms />);
+  const submitButtonElement = getByTestId("TextArea");
+  await componentsReady()
+  expect(getByText("Text Area Error")).not.toBeInTheDocument();
+
+  fireEvent.change(submitButtonElement, {target: {value: "Texteeeeeeeeeeeeeeeeeeeeee"}});
+
+  await waitFor(() => {
+    expect(getByText("Text Area Error")).toBeInTheDocument();
+  })
 });
 
 test('headline should be changed according the selected value', async () => {

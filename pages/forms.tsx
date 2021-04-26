@@ -39,6 +39,8 @@ const FormsPage = (): JSX.Element => {
     setTextField(e.target.value);
   };
 
+  const [textAreaContent, setTextAreaContent] = useState("")
+
   return (
     <div className="pageLayout">
       <Head>
@@ -87,8 +89,8 @@ const FormsPage = (): JSX.Element => {
         </PFlexItem>
         <PFlexItem>
           <form>
-            <PTextareaWrapper label="Test TextArea" hideLabel={false}>
-              <textarea name="Testarea"></textarea>
+            <PTextareaWrapper label="Test TextArea" hideLabel={false} message={"Text Area Error"}  state={textAreaContent.length > 10 ? "error" : undefined}>
+              <textarea data-testid={"TextArea"} name="Testarea" value={textAreaContent} onChange={(e) => setTextAreaContent(e.currentTarget.value)}></textarea>
             </PTextareaWrapper>
           </form>
         </PFlexItem>
