@@ -20,7 +20,8 @@
     "@porschehn/navigation": "^2.10.9",
     "next": "10.0.5",
     "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "react-dom": "17.0.2",
+    "react-spring-bottom-sheet": "^3.4.0"
   },
   "devDependencies": {
     "@porsche-design-system/prettier-config": "^1.0.0",
